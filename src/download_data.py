@@ -23,5 +23,5 @@ if not os.path.exists(data_dir):
     os.mkdir(data_dir)
 
 # write to data folder
-raw_data_pth = os.path.join(data_dir, "raw_data.csv")
+raw_data_pth = os.path.join(config["raw_data"])
 df.to_csv(path_or_buf=raw_data_pth, index=False)
