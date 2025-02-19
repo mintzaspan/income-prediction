@@ -1,5 +1,5 @@
 {
     "raw_data" : "data/raw_data.csv",
     "clean_data" : "data/clean_data.csv",
-    "target_col" : "income"
+    "target" : "income"
 }

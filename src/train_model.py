@@ -1,11 +1,13 @@
 import pandas as pd
 import json
-# from sklearn.model_selection import train_test_split
+from sklearn.model_selection import train_test_split
+from sklearn.compose import ColumnTransformer
+from sklearn.pipeline import Pipeline
+from sklearn.impute import SimpleImputer
+from sklearn.preprocessing import StandardScaler, TargetEncoder
+from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier
 
-# Add the necessary imports for the starter code.
 
-
-# Add code to load in the data.
 def load_csv_to_df(filepath, **kwargs):
     """Loads a CSV file into a Pandas DataFrame.
 
@@ -31,6 +33,99 @@ def load_csv_to_df(filepath, **kwargs):
         return None
 
 
+def split_data(X, y, test_size=0.2, random_state=42, stratify=True):
+    """Splits data into training and test sets.
+
+    Args:
+        X : features data
+        y : target data
+        test_size : proportion of data to be used for testing
+        random_state : reproducibility seed
+        stratify : option for stratifying using target variable
+
+    Returns:
+        X_train : train features data
+        X_test : test features data
+        y_train : train target data
+        y_test : test target data
+    """
+
+    if stratify:
+        X_train, X_test, y_train, y_test = train_test_split(
+            X, y, test_size=test_size, random_state=random_state, stratify=True
+        )
+    else:
+        X_train, X_test, y_train, y_test = train_test_split(
+            X, y, test_size=test_size, random_state=random_state
+        )
+
+    return (X_train, X_test, y_train, y_test)
+
+
+def train_model(X_train, y_train, algo="random_forest"):
+    """Trains a binary classification model.
+
+    Args:
+        X_train : (pd.DataFrame) features data to train the algorithm
+        y_train : (pd.DataFrame or pd.Series) target data to
+        train the algorithm
+        algo : type of model to be trained "random_forest" (default)
+         or "gradient_boosting"
+
+    Returns:
+        pipe : trained model with preprocesing steps
+    """
+
+    numeric_features = X_train.select_dtypes(include="number").columns.tolist()
+    numeric_transformer = Pipeline(
+        steps=[
+            ("imputer", SimpleImputer(strategy="mean")),
+            ("scaler", StandardScaler()),
+        ]
+    )
+
+    categorical_features = X_train.select_dtypes(
+        include=["object", "category"],
+        exclude=["datetime", "timedelta", "datetimetz"],
+    ).columns.tolist()
+    categorical_transformer = Pipeline(
+        steps=[
+            (
+                "imputer",
+                SimpleImputer(strategy="constant", fill_value="unknown"),
+            ),
+            ("encoder", TargetEncoder(target_type="binary", random_state=42)),
+            ("scaler", StandardScaler()),
+        ]
+    )
+    preprocessor = ColumnTransformer(
+        transformers=[
+            ("num", numeric_transformer, numeric_features),
+            ("cat", categorical_transformer, categorical_features),
+        ]
+    )
+
+    classifiers = {
+        "random_forest": RandomForestClassifier(n_jobs=-1),
+        "gradient_boosting": GradientBoostingClassifier(),
+    }
+
+    classifier = classifiers[algo]
+
+    pipe = Pipeline(
+        steps=[("preprocessor", preprocessor), ("classifier", classifier)]
+    )
+
+    features_list = numeric_features + categorical_features
+    features = X_train[features_list]
+
+    target = y_train.astype(bool)
+
+    pipe.fit(features, target)
+
+    return pipe
+
+
 if __name__ == "__main__":
     # import env variables
     with open("config.json", "r") as f:
@@ -43,25 +138,8 @@ if __name__ == "__main__":
     X = df.drop(config["target"], axis=1)
     y = df[config["target"]]
 
-    # # Optional enhancement, use K-fold cross validation
-    # instead of a train-test split.
-    # train, test = train_test_split(data, test_size=0.20)
+    # split data to train and test
+    X_train, X_test, y_train, y_test = train_test_split(X, y)
 
-    # cat_features = [
-    #     "workclass",
-    #     "education",
-    #     "marital-status",
-    #     "occupation",
-    #     "relationship",
-    #     "race",
-    #     "sex",
-    #     "native-country",
-    # ]
-    # X_train, y_train, encoder, lb = process_data(
-    #     train, categorical_features=cat_features,
-    # label="salary", training=True
-    # )
-
-    # # Proces the test data with the process_data function.
-
-    # # Train and save a model.
+    # train model
+    model = train_model(X_train, y_train)
