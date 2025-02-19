@@ -165,4 +165,4 @@ if __name__ == "__main__":
     model = train_model(X_train, y_train)
 
     # save model
-    save_model(model, "models/model.pkl")
+    save_model(model, config["model_output_path"])
