@@ -6,6 +6,8 @@ from sklearn.pipeline import Pipeline
 from sklearn.impute import SimpleImputer
 from sklearn.preprocessing import StandardScaler, TargetEncoder
 from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier
+import os
+import pickle
 
 
 def load_csv_to_df(filepath, **kwargs):
@@ -126,6 +128,24 @@ def train_model(X_train, y_train, algo="random_forest"):
     return pipe
 
 
+def save_model(model, output_path):
+    """Saves a trained sklearn classifier to the specified path
+
+    Args:
+        model : trained sklearn model or pipeline that can be pickled
+        output_path : path to save .pkl object
+
+    Returns:
+        None
+    """
+    if not os.path.exists(os.path.dirname(output_path)):
+        os.mkdir(os.path.dirname(output_path))
+
+    with open(output_path, "wb") as f:
+        pickle.dump(model, f)
+    print(f"Model saved in {output_path}")
+
+
 if __name__ == "__main__":
     # import env variables
     with open("config.json", "r") as f:
@@ -143,3 +163,6 @@ if __name__ == "__main__":
 
     # train model
     model = train_model(X_train, y_train)
+
+    # save model
+    save_model(model, "models/model.pkl")
