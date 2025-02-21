@@ -35,7 +35,7 @@ def load_csv_to_df(filepath, **kwargs):
         return None
 
 
-def split_data(X, y, test_size=0.2, random_state=42, stratify=True):
+def split_data(X, y, test_size=0.2, random_state=42, stratification=True):
     """Splits data into training and test sets.
 
     Args:
@@ -52,9 +52,9 @@ def split_data(X, y, test_size=0.2, random_state=42, stratify=True):
         y_test : test target data
     """
 
-    if stratify:
+    if stratification:
         X_train, X_test, y_train, y_test = train_test_split(
-            X, y, test_size=test_size, random_state=random_state, stratify=True
+            X, y, test_size=test_size, random_state=random_state, stratify=y
         )
     else:
         X_train, X_test, y_train, y_test = train_test_split(
