@@ -1,5 +1,5 @@
 {
-    "raw_data" : "data/raw_data.csv",
+    "raw_data" : "data/census.csv",
     "clean_data" : "data/clean_data.csv",
     "target" : "income",
     "model_output_path" : "models/model.pkl"
