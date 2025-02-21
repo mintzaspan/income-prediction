@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
-from src.train_model import load_csv_to_df, split_data
+from src.train_model import load_csv_to_df, split_data, train_model
+from sklearn.pipeline import Pipeline
 
 
 def test_load_to_csv(test_csv):
@@ -27,3 +28,10 @@ def test_split_data_stratified():
     assert (y_test == 0).sum() == 1
     assert (y_test == 1).sum() == 1
 
+def test_pipeline(synthetic_data):
+    X_train, X_test, y_train, y_test = synthetic_data
+    
+    model = train_model(X_train, y_train, algo="random_forest")
+    
+    assert isinstance(model, Pipeline)
+    assert len(model.steps) == 2
