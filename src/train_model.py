@@ -121,7 +121,7 @@ def train_model(X_train, y_train, algo="random_forest"):
     features_list = numeric_features + categorical_features
     features = X_train[features_list]
 
-    target = y_train.astype(bool)
+    target = y_train
 
     pipe.fit(features, target)
 

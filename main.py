@@ -46,10 +46,5 @@ def make_prediction(features: Payload) -> Dict[str, str]:
 
     X = pd.DataFrame([features.model_dump(by_alias=True)])
 
-    prediction = model.predict(X)
-    if prediction == 0:
-        predicted_income = "<=50K"
-    else:
-        predicted_income = ">50K"
-
-    return {"Predicted income": predicted_income}
+    prediction = model.predict(X)[0]
+    return {"Predicted income": prediction}
