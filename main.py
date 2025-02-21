@@ -1,5 +1,12 @@
 from fastapi import FastAPI
 from pydantic import BaseModel, Field
+from typing import Dict
+import pandas as pd
+import json
+import pickle
+
+with open("config.json", "r") as f:
+    config = json.load(f)
 
 
 class Payload(BaseModel):
@@ -29,3 +36,20 @@ app = FastAPI()
 @app.get("/")
 def greeting():
     return "Welcome to the income prediction service!"
+
+
+@app.post("/predict/")
+def make_prediction(features: Payload) -> Dict[str, str]:
+    # import model
+    with open(config["model_output_path"], "rb") as file:
+        model = pickle.load(file)
+
+    X = pd.DataFrame([features.model_dump(by_alias=True)])
+
+    prediction = model.predict(X)
+    if prediction == 0:
+        predicted_income = "<=50K"
+    else:
+        predicted_income = ">50K"
+
+    return {"Predicted income": predicted_income}
