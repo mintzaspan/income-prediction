@@ -14,3 +14,29 @@
 
 ### Test
 1. Test model and app by executing `pytest`.
+
+### Deploy and use app (locally)
+1. Deploy app - `uvicorn main:app`.
+2. Send POST request to get prdiction (example below)
+```
+curl -X 'POST' \
+  'http://127.0.0.1:8000/predict/' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "age": 30,
+  "workclass": "Private",
+  "fnlgt": 205019,
+  "education": "HS-grad",
+  "education-num": 9,
+  "marital-status": "Never-married",
+  "occupation": "Adm-clerical",
+  "relationship": "Own-child",
+  "race": "Black",
+  "sex": "Male",
+  "capital-gain": 0,
+  "capital-loss": 0,
+  "hours-per-week": 40,
+  "native-country": "United-States"
+}'
+```
