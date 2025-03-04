@@ -28,5 +28,6 @@ response = requests.post(
     url=config["heroku_url"],
     data=json.dumps(test_dict),
 )
-
-print(response)
+# print results
+print("Response status code: ", response.status_code)
+print("Response status code: ", response.content)
