@@ -48,3 +48,7 @@ def make_prediction(features: Payload) -> Dict[str, str]:
 
     prediction = model.predict(X)[0]
     return {"Predicted income": prediction}
+
+
+if __name__ == "__main__":
+    pass
