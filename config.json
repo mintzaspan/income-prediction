@@ -2,5 +2,6 @@
     "raw_data" : "data/census.csv",
     "clean_data" : "data/clean_data.csv",
     "target" : "salary",
-    "model_output_path" : "models/model.pkl"
+    "model_output_path" : "models/model.pkl",
+    "heroku_url" : "https://income-prediction-udacity-063f2eb12682.herokuapp.com/predict/"
 }
