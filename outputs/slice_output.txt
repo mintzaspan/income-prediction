@@ -1,0 +1,102 @@
+     workclass                  State-gov 0.808824
+     workclass           Self-emp-not-inc 0.750774
+     workclass                    Private 0.780934
+     workclass                Federal-gov 0.882273
+     workclass                  Local-gov 0.809605
+     workclass                          ? 0.668831
+     workclass               Self-emp-inc 0.878549
+     workclass                Without-pay 0.000000
+     workclass               Never-worked 0.000000
+     education                  Bachelors 0.846032
+     education                    HS-grad 0.650919
+     education                       11th 0.536585
+     education                    Masters 0.897187
+     education                        9th 0.312500
+     education               Some-college 0.735212
+     education                 Assoc-acdm 0.804000
+     education                  Assoc-voc 0.757009
+     education                    7th-8th 0.291667
+     education                  Doctorate 0.922601
+     education                Prof-school 0.942396
+     education                    5th-6th 0.476190
+     education                       10th 0.487805
+     education                    1st-4th 0.285714
+     education                  Preschool 0.000000
+     education                       12th 0.533333
+marital-status              Never-married 0.665775
+marital-status         Married-civ-spouse 0.812368
+marital-status                   Divorced 0.631884
+marital-status      Married-spouse-absent 0.612245
+marital-status                  Separated 0.723810
+marital-status          Married-AF-spouse 0.666667
+marital-status                    Widowed 0.617886
+    occupation               Adm-clerical 0.750288
+    occupation            Exec-managerial 0.873500
+    occupation          Handlers-cleaners 0.450450
+    occupation             Prof-specialty 0.865050
+    occupation              Other-service 0.438202
+    occupation                      Sales 0.788441
+    occupation               Craft-repair 0.644719
+    occupation           Transport-moving 0.653620
+    occupation            Farming-fishing 0.613636
+    occupation          Machine-op-inspct 0.500000
+    occupation               Tech-support 0.824593
+    occupation                          ? 0.668831
+    occupation            Protective-serv 0.773067
+    occupation               Armed-Forces 1.000000
+    occupation            Priv-house-serv 1.000000
+  relationship              Not-in-family 0.669718
+  relationship                    Husband 0.810620
+  relationship                       Wife 0.829474
+  relationship                  Own-child 0.543478
+  relationship                  Unmarried 0.609524
+  relationship             Other-relative 0.666667
+          race                      White 0.794133
+          race                      Black 0.771261
+          race         Asian-Pac-Islander 0.811429
+          race         Amer-Indian-Eskimo 0.689655
+          race                      Other 0.755556
+           sex                       Male 0.797241
+           sex                     Female 0.768487
+native-country              United-States 0.792476
+native-country                       Cuba 0.869565
+native-country                    Jamaica 0.625000
+native-country                      India 0.835443
+native-country                          ? 0.787671
+native-country                     Mexico 0.625000
+native-country                      South 0.750000
+native-country                Puerto-Rico 0.833333
+native-country                   Honduras 1.000000
+native-country                    England 0.807692
+native-country                     Canada 0.816901
+native-country                    Germany 0.833333
+native-country                       Iran 0.882353
+native-country                Philippines 0.833333
+native-country                      Italy 0.772727
+native-country                     Poland 0.700000
+native-country                   Columbia 1.000000
+native-country                   Cambodia 0.933333
+native-country                   Thailand 1.000000
+native-country                    Ecuador 0.666667
+native-country                       Laos 0.666667
+native-country                     Taiwan 0.923077
+native-country                      Haiti 0.000000
+native-country                   Portugal 0.666667
+native-country         Dominican-Republic 0.666667
+native-country                El-Salvador 0.941176
+native-country                     France 0.833333
+native-country                  Guatemala 0.500000
+native-country                      China 0.863636
+native-country                      Japan 0.755556
+native-country                 Yugoslavia 0.666667
+native-country                       Peru 0.666667
+native-country Outlying-US(Guam-USVI-etc) 0.000000
+native-country                   Scotland 1.000000
+native-country            Trinadad&Tobago 0.500000
+native-country                     Greece 0.777778
+native-country                  Nicaragua 0.666667
+native-country                    Vietnam 0.571429
+native-country                       Hong 0.833333
+native-country                    Ireland 0.750000
+native-country                    Hungary 0.800000
+native-country         Holand-Netherlands 0.000000

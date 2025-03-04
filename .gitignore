@@ -1,7 +1,6 @@
 .ruff_cache
 data/*
 !data/census.csv
-models
 .DS_Store
 .vscode
 info

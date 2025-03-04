@@ -8,6 +8,7 @@ from sklearn.preprocessing import StandardScaler, TargetEncoder
 from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier
 import os
 import pickle
+from sklearn.metrics import f1_score
 
 
 def load_csv_to_df(filepath, **kwargs):
@@ -146,6 +147,48 @@ def save_model(model, output_path):
     print(f"Model saved in {output_path}")
 
 
+def evaluate_slice(data, target, model):
+    """
+    Computes evaluation metrics for slices in categorical variables.
+    Saves output to 'outputs/slice_output.txt'
+
+    Args:
+        data : pandas.DataFrame
+        target : label column name
+        model : trained model
+
+    Returns:
+        None
+    """
+
+    categorical_features = data.select_dtypes(
+        include=["object", "category"],
+        exclude=["datetime", "timedelta", "datetimetz"],
+    ).columns.tolist()
+
+    if target in categorical_features:
+        categorical_features.remove(target)
+
+    scores = pd.DataFrame(columns=["variable", "slice", "f1_score"])
+
+    for i in categorical_features:
+        slice_values = data[i].unique().tolist()
+        for slice_value in slice_values:
+            df = data[data[i] == slice_value]
+            X = df.drop(target, axis=1)
+            y = df[target].values
+            y_pred = model.predict(X)
+            f1 = f1_score(y_true=y, y_pred=y_pred, pos_label=">50K")
+            scores.loc[len(scores)] = [i, slice_value, f1]
+
+    outputs_path = "outputs/slice_output.txt"
+    if not os.path.exists(os.path.dirname(outputs_path)):
+        os.mkdir(os.path.dirname(outputs_path))
+
+    with open(outputs_path, "w") as f:
+        f.write(scores.to_string(header=False, index=False))
+
+
 if __name__ == "__main__":
     # import env variables
     with open("config.json", "r") as f:
@@ -166,3 +209,6 @@ if __name__ == "__main__":
 
     # save model
     save_model(model, config["model_output_path"])
+
+    # evaluate fairness
+    evaluate_slice(df, "salary", model)
